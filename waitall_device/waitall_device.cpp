@@ -4,12 +4,12 @@
 #include <cuda_runtime.h>
 
 int main(int argc, char *argv[]) {
-    int myrank;
-    float *val_device, *val_host;
 
     MPI_Init(&argc, &argv);
+    int myrank;
     MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
 
+    float *val_host, *val_device;
     val_host = (float*)malloc(sizeof(float));
     cudaMalloc((void **)&val_device, sizeof(float));
 
@@ -35,11 +35,15 @@ int main(int argc, char *argv[]) {
     free(val_host);
 
 
-    // sender and receiver
+    // send and receive example
     int comm_size;
     MPI_Comm_size(MPI_COMM_WORLD, &comm_size);
-    int sender = myrank;
+    // sender and receiver
+    int sender = (myrank - 1) % comm_size;
+    if ( sender <0) sender += comm_size;
     int receiver = (myrank + 1) % comm_size;
+
+    // create memory
     float *val_send_device, *val_send_host;
     float *val_recv_device, *val_recv_host;
     val_send_host = (float*)malloc(sizeof(float));
