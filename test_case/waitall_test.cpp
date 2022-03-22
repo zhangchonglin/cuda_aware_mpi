@@ -49,7 +49,9 @@ int main(int argc, char *argv[]) {
 
     // value to send: rank
     *val_send_host = float(myrank);
+    *val_recv_host = 0.0;
     cudaMemcpy(val_send_device, val_send_host, sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(val_recv_device, val_recv_host, sizeof(float), cudaMemcpyHostToDevice);
 
     // perform send and receive
     MPI_Request requests[2];
