@@ -15,4 +15,4 @@ module load cudatoolkit/11.5
 module load cpe-cuda
 export SLURM_CPU_BIND="cores"
 
-srun waitall_test_host
+srun waitall_host
