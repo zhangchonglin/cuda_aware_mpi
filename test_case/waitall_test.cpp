@@ -9,8 +9,6 @@ int main(int argc, char *argv[]) {
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
-    int comm_size;
-    MPI_Comm_size(MPI_COMM_WORLD, &comm_size);
 
     val_host = (float*)malloc(sizeof(float));
     cudaMalloc((void **)&val_device, sizeof(float));
@@ -38,6 +36,8 @@ int main(int argc, char *argv[]) {
 
 
     // sender and receiver
+    int comm_size;
+    MPI_Comm_size(MPI_COMM_WORLD, &comm_size);
     int sender = myrank;
     int receiver = (myrank + 1) % comm_size;
     float *val_send_device, *val_send_host;
@@ -61,8 +61,8 @@ int main(int argc, char *argv[]) {
 
     // examine the received value
     cudaMemcpy(val_recv_host, val_recv_device, sizeof(float), cudaMemcpyDeviceToHost);
-    printf("%s %d %s %f\n", "I am rank", myrank,
-           "and received from rank %d with value:", sender, *val_recv_host);
+    printf("I am rank %d and received from rank %d with value %g: \n",
+           myrank, sender, *val_recv_host);
 
     cudaFree(val_send_device);
     cudaFree(val_recv_device);
