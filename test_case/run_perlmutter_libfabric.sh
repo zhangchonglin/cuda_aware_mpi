@@ -17,4 +17,4 @@ module load craype-accel-nvidia80
 export SLURM_CPU_BIND="cores"
 export MPICH_GPU_SUPPORT_ENABLED=1
 
-srun --ntasks=4 --ntasks-per-node=4 -G 4 --gpu-bind=single:1 waitall_test
+srun waitall_test
