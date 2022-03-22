@@ -7,7 +7,7 @@
 #SBATCH --ntasks-per-node=4
 #SBATCH -c 32
 #SBATCH --gpus-per-task=1
-#SBATCH --gpu-bind=single:2
+#SBATCH --gpu-bind=single:1
 #SBATCH --job-name=cuda_aware_mpi
 
 module load PrgEnv-gnu
@@ -22,4 +22,4 @@ module unload darshan
 export SLURM_CPU_BIND="cores"
 export MPICH_GPU_SUPPORT_ENABLED=1
 
-srun --ntasks=4 --ntasks-per-node=4 -G 4 --gpu-bind=single:2 cuda_aware_mpi
+srun --ntasks=4 --ntasks-per-node=4 -G 4 --gpu-bind=single:1 cuda_aware_mpi
