@@ -20,7 +20,9 @@ int main(int argc, char *argv[]) {
 
     // value to send: rank
     *val_send_host = float(myrank);
-    *val_send_recv = float(myrank);
+    *val_recv_host = 0.0;
+    printf("I am rank %d and send to rank %d with value %g: \n",
+           myrank, receiver, *val_send_host);
 
     // perform send and receive
     MPI_Request requests[2];
