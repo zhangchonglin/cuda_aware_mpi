@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
 
     // examine the received value
     cudaMemcpy(val_recv_host, val_recv_device, sizeof(float), cudaMemcpyDeviceToHost);
-    printf("I am rank %d and received from rank %d with value %g: \n",
+    printf("I am rank %d and received from rank %d with value: %g \n",
            myrank, sender, *val_recv_host);
 
     cudaFree(val_send_device);
